@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.SupplierDao">
+
+	<resultMap type="Supplier" id="SupplierResult">
+		<result property="id" column="id" />
+		<result property="contact" column="contact" />
+		<result property="address" column="address" />
+		<result property="number" column="number" />
+		<result property="remarks" column="remarks" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<select id="findAll" parameterType="Map"
+		resultMap="SupplierResult">
+		SELECT * FROM sm_supplier
+		<where>
+			<if test="name!=null and name!='' ">
+				and name like "%"#{name}"%"
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+
+	<select id="count" parameterType="Map" resultType="Long">
+		select count(*) from sm_supplier
+		<where>
+			<if test="name!=null and name!='' ">
+				and name like "%"#{name}"%"
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="Supplier">
+		insert into sm_supplier
+		values(null,#{address},#{contact},#{name},#{number},#{remarks})
+	</insert>
+
+	<select id="findRepeat" resultMap="SupplierResult"
+		parameterType="String">
+		select * from sm_supplier where name = #{name}
+	</select>
+
+	<delete id="delete" parameterType="Integer">
+		delete from sm_supplier where
+		id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Supplier">
+		update sm_supplier
+		<set>
+			<if test="contact!=null and contact!=''">
+				contact=#{contact},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="number!=null and number!=''">
+				number=#{number},
+			</if>
+			<if test="remarks!=null and remarks!=''">
+				remarks=#{remarks},
+			</if>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper> 

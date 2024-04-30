@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.GoodsTypeDao">
+
+	<resultMap type="GoodsType" id="GoodsTypeResult">
+		<result property="id" column="id" />
+		<result property="icon" column="icon" />
+		<result property="name" column="name" />
+		<result property="p_id" column="p_id" />
+		<result property="state" column="state" />
+	</resultMap>
+
+	<!-- 根据父ID查询商品类别类别 -->
+	<select id="findByGoodsType" parameterType="Integer"
+		resultMap="GoodsTypeResult">
+		select * from sm_goodstype where p_id = #{p_id}
+	</select>
+
+	<!-- 查询所有类别 下拉用 -->
+	<select id="findAll" resultMap="GoodsTypeResult">
+		select * from sm_goodstype where
+		state='0'
+	</select>
+
+	<!-- 根据ID查询实体 -->
+	<select id="findById" parameterType="Integer"
+		resultMap="GoodsTypeResult">
+		select * from sm_goodstype where id=#{id}
+	</select>
+
+	<!-- 删除商品类别类别 -->
+	<delete id="delete" parameterType="Integer">
+		delete from sm_goodstype where
+		id=#{id}
+	</delete>
+
+	<!-- 修改时判断是否重复 -->
+	<select id="isEchoes" parameterType="String"
+		resultMap="GoodsTypeResult">
+		select * from sm_goodstype where name=#{name}
+	</select>
+
+	<!-- 更新商品类别 -->
+	<update id="update" parameterType="GoodsType">
+		update sm_goodstype
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="state!=null and state!=''">
+				state=#{state},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!-- 根据ID查询实体 -->
+	<select id="findByStateId" parameterType="Integer"
+		resultMap="GoodsTypeResult">
+		select * from sm_goodstype where id=#{id}
+	</select>
+
+	<!-- 添加商品类别 -->
+	<insert id="add" useGeneratedKeys="true" keyProperty="id"
+		parameterType="GoodsType">
+		insert into sm_goodstype
+		values(null,'xx',#{name},#{p_id},#{state})
+	</insert>
+
+	<!-- 根据父节点查询下面是否含有叶子节点 -->
+	<select id="findByPid" parameterType="Integer"
+		resultMap="GoodsTypeResult">
+		select * from sm_goodstype where p_id=#{p_id} limit 0,1
+	</select>
+
+
+</mapper> 

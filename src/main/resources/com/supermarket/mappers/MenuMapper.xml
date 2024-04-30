@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.MenuDao">
+
+	<resultMap type="Menu" id="MenuResult">
+		<result property="id" column="id" />
+		<result property="icon" column="icon" />
+		<result property="name" column="name" />
+		<result property="p_id" column="p_id" />
+		<result property="roleId" column="roleId" />
+		<result property="url" column="url" />
+		<result property="menuId" column="menuId" />
+		<result property="d_id" column="d_id" />
+	</resultMap>
+
+
+	<select id="menuList" resultMap="MenuResult"
+		parameterType="Integer">
+		select t1.*,t2.id as roleId from sm_menu t1 ,sm_role t2,sm_rolemenu t3 where
+		t1.id=t3.menuId and t2.id=t3.roleId and t2.id=#{roleId}
+	</select>
+
+	<!-- 根据角色ID查询菜单 -->
+	<select id="findByRoleIdMenu" parameterType="Integer"
+		resultMap="MenuResult">
+		select t1.* from sm_menu t1 ,sm_rolemenu t2 where
+		t1.id=t2.menuId and t2.roleId=#{roleId}
+	</select>
+
+	<select id="findByParentIdAndRoleId" parameterType="Integer"
+		resultMap="MenuResult">
+		select * from sm_menu where d_id=#{d_id}
+	</select>
+
+</mapper> 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.RoleDao">
+
+	<resultMap type="Role" id="RoleResult">
+		<result property="id" column="id" />
+		<result property="roleName" column="roleName" />
+		<result property="roleRemark" column="roleRemark" />
+	</resultMap>
+
+
+	<select id="findByRoleName" resultMap="RoleResult"
+		parameterType="Integer">
+		select * from sm_Role where id=#{id}
+	</select>
+
+	<select id="findAll" parameterType="Map" resultMap="RoleResult">
+		SELECT * FROM sm_role
+		<where>
+			<if test="roleName!=null and roleName!='' ">
+				and roleName like "%"#{roleName}"%"
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+
+	<select id="count" parameterType="Map" resultType="Long">
+		select count(*) from sm_role
+		<where>
+			<if test="roleName!=null and roleName!='' ">
+				and roleName like "%"#{roleName}"%"
+			</if>
+		</where>
+	</select>
+
+	<select id="findRepeat" resultMap="RoleResult"
+		parameterType="String">
+		select * from sm_role where roleName = #{roleName}
+	</select>
+
+	<insert id="add" parameterType="Role">
+		insert into sm_role
+		values(null,#{roleName},#{roleRemark})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from sm_role where
+		id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Role">
+		update sm_role
+		<set>
+			<if test="roleName!=null and roleName!=''">
+				roleName=#{roleName},
+			</if>
+			<if test="roleRemark!=null and roleRemark!=''">
+				roleRemark=#{roleRemark},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper> 

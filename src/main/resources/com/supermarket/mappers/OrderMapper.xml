@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.OrderDao">
+
+	<resultMap type="Order" id="OrderResult">
+		<result property="id" column="id" />
+		<result property="remark" column="remark" />
+		<result property="code" column="code" />
+		<result property="supplier_id" column="supplier_id" />
+		<result property="state" column="state" />
+		<result property="createdate" column="createdate" />
+		<result property="paydate" column="paydate" />
+		<result property="paymoney" column="paymoney" />
+	</resultMap>
+
+	<!-- 获取今天最大单号 -->
+	<select id="getTodayMaxNumber" resultMap="OrderResult">
+		SELECT MAX(code) as code FROM sm_order WHERE
+		TO_DAYS(createdate)=TO_DAYS(NOW())
+	</select>
+
+	<!-- 查询所有商品 -->
+	<select id="findAll" parameterType="Map" resultMap="OrderResult">
+		SELECT
+		t1.id,T1.code,T1.state,T1.createdate,T1.paydate,T1.remark,T1.paymoney,T2.name,t2.contact,T2.number
+		FROM sm_order T1 , sm_supplier T2
+		WHERE T1.supplier_id=T2.id
+		<if test="code!=null and code!='' ">
+			and code =#{code}
+		</if>
+		<if test="page!=null and limit!=null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+
+	<!-- 查询总记录数 -->
+	<select id="count" parameterType="Map" resultType="Long">
+		SELECT count(*) FROM sm_order T1 , sm_supplier T2
+		WHERE T1.supplier_id=T2.id
+		<if test="code!=null and code!='' ">
+			and code =#{code}
+		</if>
+	</select>
+
+
+	<insert id="add" parameterType="Order">
+		insert into sm_order
+		values(null,#{code},#{supplier_id},#{state},#{remark}, #{paymoney},now(),#{paydate})
+	</insert>
+
+</mapper> 

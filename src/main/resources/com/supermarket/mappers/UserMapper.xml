@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.UserDao">
+
+	<resultMap type="User" id="UserResult">
+		<result property="id" column="id" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+		<result property="trueName" column="trueName" />
+		<result property="roleId" column="roleId" />
+		<result property="number" column="number" />
+		<result property="address" column="address" />
+		<result property="roleName" column="roleName" />
+	</resultMap>
+
+
+	<select id="findByUserName" resultMap="UserResult"
+		parameterType="String">
+		select * from sm_user where userName = #{userName}
+	</select>
+
+	<select id="findAll" parameterType="Map" resultMap="UserResult">
+		SELECT t1.*,t2.roleName,t2.id as roleId FROM sm_user t1 LEFT JOIN
+		sm_roleuser t3 ON t1.id = t3.userId LEFT JOIN sm_role t2 ON t2.id =
+		t3.roleId
+		<where>
+			<if test="userName!=null and userName!='' ">
+				and userName like "%"#{userName}"%"
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+
+	<select id="count" parameterType="Map" resultType="Long">
+		select count(*) from sm_user
+		<where>
+			<if test="userName!=null and userName!='' ">
+				and userName like "%"#{userName}"%"
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id"
+		parameterType="User">
+		insert into sm_user
+		values(null,#{userName},#{password},#{trueName},#{number},#{address})
+	</insert>
+
+	<delete id="delete" parameterType="Integer">
+		delete from sm_user where
+		id=#{id}
+	</delete>
+
+	<update id="update" parameterType="User">
+		update sm_user
+		<set>
+			<if test="trueName!=null and trueName!=''">
+				trueName=#{trueName},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="number!=null and number!=''">
+				number=#{number},
+			</if>
+			<if test="password!=null and password!=''">
+				password=#{password},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<update id="updateReset" parameterType="Integer">
+		update sm_user set
+		password='123' where id=#{id}
+	</update>
+
+	<select id="findRoleId" resultMap="UserResult"
+		parameterType="String">
+		SELECT t1.*,t2.roleName,t2.id as roleId FROM sm_user t1
+		LEFT JOIN sm_roleuser t3 ON t1.id = t3.userId LEFT JOIN sm_role t2 ON
+		t2.id = t3.roleId where t1.userName=#{userName}
+	</select>
+
+</mapper> 

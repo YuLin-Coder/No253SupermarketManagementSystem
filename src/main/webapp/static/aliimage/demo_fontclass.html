@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>IconFont</title>
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="iconfont.css">
+</head>
+<body>
+    <div class="main markdown">
+        <h1>IconFont 图标</h1>
+        <ul class="icon_lists clear">
+            
+                <li>
+                <i class="icon iconfont icon-tianmaochaoshi"></i>
+                    <div class="name">天猫超市</div>
+                    <div class="fontclass">.icon-tianmaochaoshi</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-supplier"></i>
+                    <div class="name">供应商</div>
+                    <div class="fontclass">.icon-supplier</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-caiwu"></i>
+                    <div class="name">财务</div>
+                    <div class="fontclass">.icon-caiwu</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-jinhuodan"></i>
+                    <div class="name">进货单</div>
+                    <div class="fontclass">.icon-jinhuodan</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-xiaoshoudingdan"></i>
+                    <div class="name">销售订单</div>
+                    <div class="fontclass">.icon-xiaoshoudingdan</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-xiaoshoubaobiao"></i>
+                    <div class="name">销售报表</div>
+                    <div class="fontclass">.icon-xiaoshoubaobiao</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-yiguoqi"></i>
+                    <div class="name">已过期</div>
+                    <div class="fontclass">.icon-yiguoqi</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-shouru"></i>
+                    <div class="name">收入</div>
+                    <div class="fontclass">.icon-shouru</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-shangpinguanli"></i>
+                    <div class="name">商品管理</div>
+                    <div class="fontclass">.icon-shangpinguanli</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-icon-p_dangqiankucun"></i>
+                    <div class="name">库存</div>
+                    <div class="fontclass">.icon-icon-p_dangqiankucun</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-yonghu"></i>
+                    <div class="name">用户</div>
+                    <div class="fontclass">.icon-yonghu</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-navicon-jsgl"></i>
+                    <div class="name">角色管理</div>
+                    <div class="fontclass">.icon-navicon-jsgl</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-danju"></i>
+                    <div class="name">单据</div>
+                    <div class="fontclass">.icon-danju</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-tuihuo"></i>
+                    <div class="name">退货</div>
+                    <div class="fontclass">.icon-tuihuo</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-caigou"></i>
+                    <div class="name">采购</div>
+                    <div class="fontclass">.icon-caigou</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-xiaoshouguanli"></i>
+                    <div class="name">销售管理</div>
+                    <div class="fontclass">.icon-xiaoshouguanli</div>
+                </li>
+            
+                <li>
+                <i class="icon iconfont icon-jichuguanli"></i>
+                    <div class="name">基础管理</div>
+                    <div class="fontclass">.icon-jichuguanli</div>
+                </li>
+            
+        </ul>
+
+        <h2 id="font-class-">font-class引用</h2>
+        <hr>
+
+        <p>font-class是unicode使用方式的一种变种，主要是解决unicode书写不直观，语意不明确的问题。</p>
+        <p>与unicode使用方式相比，具有如下特点：</p>
+        <ul>
+        <li>兼容性良好，支持ie8+，及所有现代浏览器。</li>
+        <li>相比于unicode语意明确，书写更直观。可以很容易分辨这个icon是什么。</li>
+        <li>因为使用class来定义图标，所以当要替换图标时，只需要修改class里面的unicode引用。</li>
+        <li>不过因为本质上还是使用的字体，所以多色图标还是不支持的。</li>
+        </ul>
+        <p>使用步骤如下：</p>
+        <h3 id="-fontclass-">第一步：引入项目下面生成的fontclass代码：</h3>
+
+
+        <pre><code class="lang-js hljs javascript"><span class="hljs-comment">&lt;link rel="stylesheet" type="text/css" href="./iconfont.css"&gt;</span></code></pre>
+        <h3 id="-">第二步：挑选相应图标并获取类名，应用于页面：</h3>
+        <pre><code class="lang-css hljs">&lt;<span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">class</span>="<span class="hljs-selector-tag">iconfont</span> <span class="hljs-selector-tag">icon-xxx</span>"&gt;&lt;/<span class="hljs-selector-tag">i</span>&gt;</code></pre>
+        <blockquote>
+        <p>"iconfont"是你项目下的font-family。可以通过编辑项目查看，默认是"iconfont"。</p>
+        </blockquote>
+    </div>
+</body>
+</html>
